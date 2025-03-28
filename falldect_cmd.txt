@@ -1,0 +1,18 @@
+(venv) raspberry@raspberry-desktop:~/mediapipe_google$ python3 /home/raspberry/mediapipe_google/falldect_mediapipe.py
+Error in cpuinfo: prctl(PR_SVE_GET_VL) failed
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+按 'q' 退出, 按 'r' 重置跌倒狀態
+--- 開始偵測 ---
+偵測到 Webcam 來源 (或無法獲取總幀數)
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1743172558.046039    7295 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1743172558.230785    7298 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1743172558.642412    7295 landmark_projection_calculator.cc:186] Using NORM_RECT without IMAGE_DIMENSIONS is only supported for the square ROI. Provide IMAGE_DIMENSIONS or use PROJECTION_MATRIX.
+Warning: Ignoring XDG_SESSION_TYPE=wayland on Gnome. Use QT_QPA_PLATFORM=wayland to run on Wayland anyway.
+[22:36:15] 偵測到疑似跌倒，開始計時...
+[22:36:17] !!! 確認跌倒 !!!
+[22:36:53] 目標消失，重置計時器。
+收到 'q'，退出程式。
+--- 結束偵測，釋放資源 ---
+資源已釋放。
+

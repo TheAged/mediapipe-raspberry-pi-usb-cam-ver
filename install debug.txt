@@ -1,0 +1,205 @@
+raspberry@raspberry-desktop:~$ ls /dev/viedo*
+ls: cannot access '/dev/viedo*': No such file or directory
+raspberry@raspberry-desktop:~$  ls /dev/video*
+/dev/video0   /dev/video12  /dev/video16  /dev/video21
+/dev/video1   /dev/video13  /dev/video18  /dev/video22
+/dev/video10  /dev/video14  /dev/video19  /dev/video23
+/dev/video11  /dev/video15  /dev/video20  /dev/video31
+raspberry@raspberry-desktop:~$ python3 /home/raspberry/Desktop/camera_test.py
+正在嘗試開啟相機索引: 1
+[ WARN:0@1.140] global ./modules/videoio/src/cap_gstreamer.cpp (2401) handleMessage OpenCV | GStreamer warning: Embedded video playback halted; module v4l2src0 reported: Device '/dev/video1' is not a capture device.
+[ WARN:0@1.140] global ./modules/videoio/src/cap_gstreamer.cpp (1356) open OpenCV | GStreamer warning: unable to start pipeline
+[ WARN:0@1.140] global ./modules/videoio/src/cap_gstreamer.cpp (862) isPipelinePlaying OpenCV | GStreamer warning: GStreamer: pipeline have not been created
+[ WARN:0@1.143] global ./modules/videoio/src/cap_v4l.cpp (902) open VIDEOIO(V4L2:/dev/video1): can't open camera by index
+錯誤：無法開啟相機索引 1
+raspberry@raspberry-desktop:~$ python3 /home/raspberry/Desktop/camera_test.py
+正在嘗試開啟相機索引: 0
+[ WARN:0@1.048] global ./modules/videoio/src/cap_gstreamer.cpp (1405) open OpenCV | GStreamer warning: Cannot query video position: status=0, value=-1, duration=-1
+成功開啟相機索引 0！按 'q' 鍵關閉視窗。
+Frame 1: 成功讀取畫面，形狀: (480, 640, 3)
+QSocketNotifier: Can only be used with threads started with QThread
+Frame 2: 成功讀取畫面，形狀: (480, 640, 3)
+Frame 3: 成功讀取畫面，形狀: (480, 640, 3)
+Frame 4: 成功讀取畫面，形狀: (480, 640, 3)
+Frame 5: 成功讀取畫面，形狀: (480, 640, 3)
+Frame 100: 成功讀取畫面，形狀: (480, 640, 3)
+Frame 200: 成功讀取畫面，形狀: (480, 640, 3)
+Frame 300: 成功讀取畫面，形狀: (480, 640, 3)
+Frame 400: 成功讀取畫面，形狀: (480, 640, 3)
+Frame 500: 成功讀取畫面，形狀: (480, 640, 3)
+Frame 600: 成功讀取畫面，形狀: (480, 640, 3)
+Frame 700: 成功讀取畫面，形狀: (480, 640, 3)
+Frame 800: 成功讀取畫面，形狀: (480, 640, 3)
+Frame 900: 成功讀取畫面，形狀: (480, 640, 3)
+Frame 1000: 成功讀取畫面，形狀: (480, 640, 3)
+Frame 1100: 成功讀取畫面，形狀: (480, 640, 3)
+程式結束。
+raspberry@raspberry-desktop:~$ python3 /home/raspberry/mediapipe_google/object_detector_video.py
+Traceback (most recent call last):
+  File "/home/raspberry/mediapipe_google/object_detector_video.py", line 2, in <module>
+    import mediapipe as mp
+ModuleNotFoundError: No module named 'mediapipe'
+raspberry@raspberry-desktop:~$ cd ~/mediapipe_google
+raspberry@raspberry-desktop:~/mediapipe_google$ source venv/bin/activate
+(venv) raspberry@raspberry-desktop:~/mediapipe_google$ python3 /home/raspberry/mediapipe_google/object_detector_video.py
+創建 ObjectDetector 失敗: Unable to open file at /home/raspberry/mediapipe_google/efficientdet_lite0.tflite
+(venv) raspberry@raspberry-desktop:~/mediapipe_google$ wget -q https://storage.googleapis.com/mediapipe-models/object_detector/efficientdet_lite0/int8/efficientdet_lite0.tflite
+(venv) raspberry@raspberry-desktop:~/mediapipe_google$ ls -lh
+total 16K
+-rw-rw-r-- 1 raspberry raspberry 4.3K  3月 28 21:33 object_detector_video.py
+-rw-rw-r-- 1 raspberry raspberry 1.8K  3月 28 16:00 test_camera.py
+drwxrwxr-x 6 raspberry raspberry 4.0K  3月 27 22:56 venv
+(venv) raspberry@raspberry-desktop:~/mediapipe_google$ wget https://storage.googleapis.com/mediapipe-models/object_detector/efficientdet_lite0/int8/efficientdet_lite0.tflite
+--2025-03-28 21:39:51--  https://storage.googleapis.com/mediapipe-models/object_detector/efficientdet_lite0/int8/efficientdet_lite0.tflite
+Resolving storage.googleapis.com (storage.googleapis.com)... 142.250.196.219, 142.250.204.59, 142.250.198.91, ...
+Connecting to storage.googleapis.com (storage.googleapis.com)|142.250.196.219|:443... connected.
+HTTP request sent, awaiting response... 404 Not Found
+2025-03-28 21:39:51 ERROR 404: Not Found.
+
+(venv) raspberry@raspberry-desktop:~/mediapipe_google$ wget https://storage.googleapis.com/mediapipe-models/object_detector/efficientdet_lite2/int8/efficientdet_lite2.tflite
+--2025-03-28 21:40:46--  https://storage.googleapis.com/mediapipe-models/object_detector/efficientdet_lite2/int8/efficientdet_lite2.tflite
+Resolving storage.googleapis.com (storage.googleapis.com)... 142.250.196.219, 142.250.204.59, 142.250.198.91, ...
+Connecting to storage.googleapis.com (storage.googleapis.com)|142.250.196.219|:443... connected.
+HTTP request sent, awaiting response... 404 Not Found
+2025-03-28 21:40:46 ERROR 404: Not Found.
+
+(venv) raspberry@raspberry-desktop:~/mediapipe_google$ ls -lh
+total 16K
+-rw-rw-r-- 1 raspberry raspberry 4.3K  3月 28 21:33 object_detector_video.py
+-rw-rw-r-- 1 raspberry raspberry 1.8K  3月 28 16:00 test_camera.py
+drwxrwxr-x 6 raspberry raspberry 4.0K  3月 27 22:56 venv
+(venv) raspberry@raspberry-desktop:~/mediapipe_google$ wget https://storage.googleapis.com/mediapipe-tasks/object_detector/efficientdet_lite0.tflite
+--2025-03-28 21:41:55--  https://storage.googleapis.com/mediapipe-tasks/object_detector/efficientdet_lite0.tflite
+Resolving storage.googleapis.com (storage.googleapis.com)... 142.250.198.91, 142.250.204.59, 142.250.196.219, ...
+Connecting to storage.googleapis.com (storage.googleapis.com)|142.250.198.91|:443... connected.
+HTTP request sent, awaiting response... 404 Not Found
+2025-03-28 21:41:55 ERROR 404: Not Found.
+
+(venv) raspberry@raspberry-desktop:~/mediapipe_google$ python3 /home/raspberry/mediapipe_google/object_detector_video.py
+創建 ObjectDetector 失敗: Unable to open file at /home/raspberry/mediapipe_google/efficientdet_lite0.tflite
+(venv) raspberry@raspberry-desktop:~/mediapipe_google$ python3 /home/raspberry/mediapipe_google/check_mediapipe_install.py
+Python 可執行檔路徑: /home/raspberry/mediapipe_google/venv/bin/python3
+成功匯入 MediaPipe 版本: 0.10.18
+成功匯入 OpenCV 版本: 4.11.0
+------------------------------
+結論：基本的 MediaPipe 和 OpenCV 函式庫看起來已安裝且可匯入。
+下一步是需要成功下載有效的 .tflite 模型檔案才能執行物件偵測。
+(venv) raspberry@raspberry-desktop:~/mediapipe_google$ wget -O efficientdet.tflite https://storage.googleapis.com/mediapipe-models/object_detector/efficientdet_lite0/int8/1/efficientdet_lite0.tflite
+--2025-03-28 21:57:54--  https://storage.googleapis.com/mediapipe-models/object_detector/efficientdet_lite0/int8/1/efficientdet_lite0.tflite
+Resolving storage.googleapis.com (storage.googleapis.com)... 142.250.196.219, 142.250.77.27, 142.250.204.59, ...
+Connecting to storage.googleapis.com (storage.googleapis.com)|142.250.196.219|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 4602795 (4.4M) [application/octet-stream]
+Saving to: ‘efficientdet.tflite’
+
+efficientdet.tflite 100%[===================>]   4.39M  3.40MB/s    in 1.3s    
+
+2025-03-28 21:57:56 (3.40 MB/s) - ‘efficientdet.tflite’ saved [4602795/4602795]
+
+(venv) raspberry@raspberry-desktop:~/mediapipe_google$ python3 /home/raspberry/mediapipe_google/object_detector_video.py
+Error in cpuinfo: prctl(PR_SVE_GET_VL) failed
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+MediaPipe ObjectDetector 創建成功。
+成功開啟攝影機 0 (640x480)。按 'q' 鍵結束。
+Warning: Ignoring XDG_SESSION_TYPE=wayland on Gnome. Use QT_QPA_PLATFORM=wayland to run on Wayland anyway.
+FPS: 1.0
+FPS: 1.7
+FPS: 2.1
+FPS: 2.5
+FPS: 2.7
+FPS: 2.9
+FPS: 3.1
+FPS: 3.3
+FPS: 3.4
+FPS: 3.5
+FPS: 3.6
+FPS: 3.7
+FPS: 3.7
+FPS: 3.8
+FPS: 3.9
+FPS: 3.9
+FPS: 3.9
+FPS: 4.0
+FPS: 4.0
+FPS: 4.1
+FPS: 4.1
+FPS: 4.1
+FPS: 4.1
+FPS: 4.2
+FPS: 4.2
+FPS: 4.2
+FPS: 4.2
+FPS: 4.3
+FPS: 4.3
+FPS: 4.3
+FPS: 4.3
+FPS: 4.3
+FPS: 4.3
+FPS: 4.3
+FPS: 4.3
+FPS: 4.3
+FPS: 4.3
+FPS: 4.3
+FPS: 4.3
+FPS: 4.3
+FPS: 4.3
+FPS: 4.3
+qFPS: 4.3
+FPS: 4.3
+FPS: 4.3
+程式結束。
+(venv) raspberry@raspberry-desktop:~/mediapipe_google$ python3 /home/raspberry/mediapipe_google/object_detector_video.py
+Error in cpuinfo: prctl(PR_SVE_GET_VL) failed
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+MediaPipe ObjectDetector 創建成功。
+成功開啟攝影機 0 (320x240)。按 'q' 鍵結束。
+Warning: Ignoring XDG_SESSION_TYPE=wayland on Gnome. Use QT_QPA_PLATFORM=wayland to run on Wayland anyway.
+FPS: 3.0
+FPS: 3.8
+FPS: 4.1
+FPS: 4.3
+FPS: 4.5
+FPS: 4.6
+FPS: 4.6
+FPS: 4.7
+FPS: 4.7
+FPS: 4.7
+FPS: 4.8
+FPS: 4.8
+FPS: 4.8
+FPS: 4.8
+FPS: 4.9
+程式結束。
+(venv) raspberry@raspberry-desktop:~/mediapipe_google$ pip install opencv-python mediapipe numpy
+Collecting opencv-python
+  Using cached opencv_python-4.11.0.86-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl.metadata (20 kB)
+Requirement already satisfied: mediapipe in ./venv/lib/python3.12/site-packages (0.10.18)
+Requirement already satisfied: numpy in ./venv/lib/python3.12/site-packages (1.26.4)
+Requirement already satisfied: absl-py in ./venv/lib/python3.12/site-packages (from mediapipe) (2.2.1)
+Requirement already satisfied: attrs>=19.1.0 in ./venv/lib/python3.12/site-packages (from mediapipe) (25.3.0)
+Requirement already satisfied: flatbuffers>=2.0 in ./venv/lib/python3.12/site-packages (from mediapipe) (25.2.10)
+Requirement already satisfied: jax in ./venv/lib/python3.12/site-packages (from mediapipe) (0.5.3)
+Requirement already satisfied: jaxlib in ./venv/lib/python3.12/site-packages (from mediapipe) (0.5.3)
+Requirement already satisfied: matplotlib in ./venv/lib/python3.12/site-packages (from mediapipe) (3.10.1)
+Requirement already satisfied: opencv-contrib-python in ./venv/lib/python3.12/site-packages (from mediapipe) (4.11.0.86)
+Requirement already satisfied: protobuf<5,>=4.25.3 in ./venv/lib/python3.12/site-packages (from mediapipe) (4.25.6)
+Requirement already satisfied: sounddevice>=0.4.4 in ./venv/lib/python3.12/site-packages (from mediapipe) (0.5.1)
+Requirement already satisfied: sentencepiece in ./venv/lib/python3.12/site-packages (from mediapipe) (0.2.0)
+Requirement already satisfied: CFFI>=1.0 in ./venv/lib/python3.12/site-packages (from sounddevice>=0.4.4->mediapipe) (1.17.1)
+Requirement already satisfied: ml_dtypes>=0.4.0 in ./venv/lib/python3.12/site-packages (from jax->mediapipe) (0.5.1)
+Requirement already satisfied: opt_einsum in ./venv/lib/python3.12/site-packages (from jax->mediapipe) (3.4.0)
+Requirement already satisfied: scipy>=1.11.1 in ./venv/lib/python3.12/site-packages (from jax->mediapipe) (1.15.2)
+Requirement already satisfied: contourpy>=1.0.1 in ./venv/lib/python3.12/site-packages (from matplotlib->mediapipe) (1.3.1)
+Requirement already satisfied: cycler>=0.10 in ./venv/lib/python3.12/site-packages (from matplotlib->mediapipe) (0.12.1)
+Requirement already satisfied: fonttools>=4.22.0 in ./venv/lib/python3.12/site-packages (from matplotlib->mediapipe) (4.56.0)
+Requirement already satisfied: kiwisolver>=1.3.1 in ./venv/lib/python3.12/site-packages (from matplotlib->mediapipe) (1.4.8)
+Requirement already satisfied: packaging>=20.0 in ./venv/lib/python3.12/site-packages (from matplotlib->mediapipe) (24.2)
+Requirement already satisfied: pillow>=8 in ./venv/lib/python3.12/site-packages (from matplotlib->mediapipe) (11.1.0)
+Requirement already satisfied: pyparsing>=2.3.1 in ./venv/lib/python3.12/site-packages (from matplotlib->mediapipe) (3.2.3)
+Requirement already satisfied: python-dateutil>=2.7 in ./venv/lib/python3.12/site-packages (from matplotlib->mediapipe) (2.9.0.post0)
+Requirement already satisfied: pycparser in ./venv/lib/python3.12/site-packages (from CFFI>=1.0->sounddevice>=0.4.4->mediapipe) (2.22)
+Requirement already satisfied: six>=1.5 in ./venv/lib/python3.12/site-packages (from python-dateutil>=2.7->matplotlib->mediapipe) (1.17.0)
+Using cached opencv_python-4.11.0.86-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (42.2 MB)
+Installing collected packages: opencv-python
+Successfully installed opencv-python-4.11.0.86
+
