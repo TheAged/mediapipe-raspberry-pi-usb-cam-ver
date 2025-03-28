@@ -1,87 +1,85 @@
-# Real-time Fall Detection using MediaPipe Pose
+# 使用 MediaPipe Pose 實現即時跌倒偵測
 
-This project implements a basic real-time fall detection system using Google's MediaPipe Pose library and OpenCV in Python. It analyzes human pose landmarks extracted from a video stream (webcam or file) to identify potential fall events based on kinematic and positional cues.
+本專案使用 Google 的 MediaPipe Pose 函式庫及 Python 的 OpenCV，實作了一個基礎的即時跌倒偵測系統。它分析來自視訊流（網路攝影機或影片檔案）的人體姿態關節點，以根據運動學與位置線索來識別潛在的跌倒事件。
 
-## Description
+## 專案描述
 
-The script captures video frames, processes them with MediaPipe Pose to obtain 33 3D human body landmarks, and then applies a set of rules to determine if a fall has occurred. The detection logic considers:
+此腳本擷取視訊畫面，透過 MediaPipe Pose 處理以獲得 33 個人體 3D 關節點，接著應用一套規則來判斷是否發生了跌倒。偵測邏輯考量了以下幾點：
 
-1.  **Vertical Velocity:** Tracks the downward speed of the person's hip center. A rapid increase suggests a fall.
-2.  **Body Orientation:** Calculates the angle of the torso (shoulder center to hip center) relative to the vertical axis. A large angle sustained over time indicates a horizontal posture, common after a fall.
-3.  **Relative Height:** Monitors the vertical position (Y-coordinate) of the hip center relative to the frame's height. A position near the bottom edge can indicate lying or sitting on the floor.
-4.  **State Persistence:** Requires potential fall indicators (like high velocity or horizontal/low posture) to persist for a defined duration (`FALL_CONFIRM_DURATION`) before confirming a fall, reducing false positives from quick movements.
+1.  **垂直速度 (Vertical Velocity):** 追蹤人體臀部中心的向下速度。速度快速增加可能表示正在跌落。
+2.  **身體方向 (Body Orientation):** 計算軀幹（肩膀中心到臀部中心連線）相對於垂直線的角度。長時間維持較大的角度表示身體處於水平姿態，這在跌倒後很常見。
+3.  **相對高度 (Relative Height):** 監控臀部中心的垂直位置（Y 座標）相對於畫面高度的比例。若位置接近畫面底部邊緣，可能表示躺臥或坐在地上。
+4.  **狀態持續性 (State Persistence):** 要求潛在的跌倒指標（如高速下降或水平/低高度姿態）持續達到預設的時長 (`FALL_CONFIRM_DURATION`) 後，才確認為跌倒，藉此減少因短暫快速動作引起的誤報。
 
-The script provides visual feedback by drawing the detected pose skeleton and displaying the current detection status ("Normal", "Potential Fall...", "FALL DETECTED!") on the output video window.
+腳本會繪製偵測到的姿態骨架，並在輸出的視訊視窗上顯示目前的偵測狀態（「正常」、「疑似跌倒...」、「偵測到跌倒！」），以提供視覺回饋。
 
-## Features
+## 主要功能
 
-* Real-time pose estimation via MediaPipe Pose.
-* Fall detection based on vertical velocity, body angle, and relative height.
-* Temporal filtering (state persistence) to improve robustness.
-* Visual output with skeleton overlay and status messages.
-* Basic FPS counter.
-* Keyboard controls: 'q' to quit, 'r' to reset fall status.
-* Configurable detection thresholds.
+* 透過 MediaPipe Pose 進行即時姿態估計。
+* 基於垂直速度、身體角度和相對高度的跌倒偵測。
+* 時間濾波（狀態持續性）以提升穩定性。
+* 包含骨架疊加與狀態訊息的視覺化輸出。
+* 簡易 FPS（畫面更新率）顯示。
+* 鍵盤控制：按下 'q' 鍵退出，按下 'r' 鍵重設跌倒狀態。
+* 可配置的偵測閾值。
 
-## Requirements
+## 環境需求
 
 * Python 3.7+
 * OpenCV (`opencv-python`)
 * MediaPipe (`mediapipe`)
 * NumPy (`numpy`)
 
-## Installation
+## 安裝指南
 
-1.  **Clone the repository or download the script.**
-2.  **(Optional but recommended) Create and activate a Python virtual environment:**
+1.  **複製儲存庫或下載腳本。**
+2.  **（選擇性但建議）建立並啟用 Python 虛擬環境：**
     ```bash
     python3 -m venv venv
-    # On Linux/macOS:
+    # Linux/macOS:
     source venv/bin/activate
-    # On Windows:
+    # Windows:
     # venv\Scripts\activate
     ```
-3.  **Install the required libraries:**
+3.  **安裝必要的函式庫：**
     ```bash
     pip install opencv-python mediapipe numpy
     ```
 
-## Usage
+## 使用方法
 
-1.  **Connect a webcam** or ensure you have a video file path ready.
-2.  **Run the script from your terminal:**
+1.  **連接網路攝影機**或準備好影片檔案的路徑。
+2.  **從您的終端機執行腳本：**
     ```bash
     python3 your_script_name.py
     ```
-    *(Replace `your_script_name.py` with the actual filename, e.g., `falldect_mediapipe.py`)*
-3.  The script will open a window displaying the video feed with pose landmarks and the detection status.
-4.  **Interact:**
-    * Press **'q'** to quit the application.
-    * Press **'r'** to manually reset the "FALL DETECTED!" status back to "Normal" during testing.
+    *（請將 `your_script_name.py` 替換為您實際的腳本檔名，例如 `falldect_mediapipe.py`）*
+3.  腳本將開啟一個視窗，顯示包含姿態關節點和偵測狀態的視訊畫面。
+4.  **互動操作：**
+    * 按下 **'q'** 鍵退出應用程式。
+    * 按下 **'r'** 鍵可在測試過程中手動將「偵測到跌倒！」狀態重設回「正常」。
 
-*Note: By default, the script uses webcam index `0`. To use a different webcam or a video file, modify the `cv2.VideoCapture()` line within the script.*
+*注意：腳本預設使用索引值為 `0` 的網路攝影機。若要使用不同的攝影機或影片檔案，請修改腳本中的 `cv2.VideoCapture()` 行。*
 
-## Configuration and Tuning (VERY IMPORTANT)
+## 設定與調整 (非常重要)
 
-The accuracy of the fall detection heavily depends on the threshold values set within the script. These **must be tuned** based on your specific setup and environment:
+跌倒偵測的準確性**高度依賴**於腳本中設定的閾值。這些閾值**必須**根據您的具體設置和環境進行調整：
 
-* `Y_VELOCITY_THRESHOLD`: Controls how fast the downward hip movement must be to trigger a potential fall. Increase if too sensitive, decrease if falls are missed.
-* `ANGLE_THRESHOLD`: Determines the angle (from vertical) at which the body is considered "horizontal". Increase if tilting is falsely flagged, decrease if horizontal falls are missed.
-* `HEIGHT_THRESHOLD_FACTOR`: Defines how low the hips must be (relative to frame height, 0.0=top, 1.0=bottom) to be considered "low". Adjust based on camera view and typical user positions.
-* `FALL_CONFIRM_DURATION`: The time (in seconds) a potential fall state must persist before being confirmed. Increase to avoid flagging temporary actions (like picking something up), decrease for faster confirmation.
-* `model_complexity` (in `mp_pose.Pose`): Set to `0` (lite), `1` (full), or `2` (heavy). Lower values run faster but may be less accurate, especially on low-power devices like Raspberry Pi.
+* `Y_VELOCITY_THRESHOLD`: 控制臀部向下移動的速度要多快才會觸發疑似跌倒。如果過於敏感，請**增加**此值；如果遺漏跌倒，請**減小**此值。
+* `ANGLE_THRESHOLD`: 決定身體被視為「水平」的角度（相對於垂直線）。如果輕微傾斜就被誤判，請**增加**此值；如果水平倒下卻未觸發，請**減小**此值。
+* `HEIGHT_THRESHOLD_FACTOR`: 定義臀部要多低（相對於畫面高度，0.0=頂部, 1.0=底部）才算「過低」。根據攝影機視角和使用者通常的位置調整此值（Y 座標大於此值表示過低）。
+* `FALL_CONFIRM_DURATION`: 疑似跌倒狀態必須持續多久（秒）才會被確認。**增加**此值以避免將短暫動作（如撿東西）誤判為跌倒；**減小**此值以加快確認速度。
+* `model_complexity` (在 `mp_pose.Pose` 中設定): 可設為 `0` (lite)、`1` (full) 或 `2` (heavy)。數值越低執行速度越快，但準確度可能較低，尤其在像樹莓派這樣資源有限的裝置上。
 
-**Experimentation with these values in your target environment is crucial for reliable performance.**
+**在您的目標環境中針對這些數值進行實驗對於獲得可靠的效能至關重要。**
 
-## Limitations
+## 已知限制
 
-* **Threshold Dependency:** Performance is highly sensitive to the chosen thresholds.
-* **Environmental Factors:** Accuracy can be affected by camera angle, distance, lighting conditions, and background clutter.
-* **Occlusion:** If key body parts (especially hips, shoulders) are hidden, detection may fail.
-* **Ambiguous Actions:** May confuse actual falls with similar intentional actions like lying down quickly, certain exercises (e.g., burpees), or sitting down abruptly.
-* **Performance:** Real-time processing can be computationally intensive, especially on resource-constrained devices. Adjust `model_complexity` if FPS is too low.
-* **Multi-Person:** The current script assumes a single person in the frame and does not handle multiple individuals.
+* **閾值依賴性：** 效能對所選閾值非常敏感。
+* **環境因素：** 準確性可能受攝影機角度、距離、光線條件和背景雜亂程度影響。
+* **遮擋：** 如果關鍵身體部位（尤其是臀部、肩膀）被遮擋，偵測可能會失敗。
+* **模糊動作：** 可能會將實際跌倒與類似的刻意動作混淆，例如快速躺下、某些運動（如波比跳）或突然坐下。
+* **效能：** 即時處理可能需要大量計算資源，尤其是在資源受限的裝置上。如果 FPS 過低，請調整 `model_complexity`。
+* **多人場景：** 目前腳本假設畫面中只有一個人，未明確處理多人情況。
 
-## License
 
-[Specify Your License Here - e.g., MIT License, Apache 2.0, etc. If unsure, you can research common open-source licenses.]
